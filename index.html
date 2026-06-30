@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Revenue Leak Audit</title>
+    <link rel="icon" href="data:," />
+    <meta
+      name="description"
+      content="A 48-hour audit that finds the fastest places your business is leaking revenue and gives you ready-to-use fixes."
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #17211b;
+        --muted: #52615a;
+        --line: #d9e2dc;
+        --paper: #f7f5ef;
+        --white: #ffffff;
+        --green: #147a50;
+        --green-dark: #0c5538;
+        --blue: #266b8f;
+        --coral: #c95843;
+        --shadow: 0 18px 45px rgba(23, 33, 27, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: var(--paper);
+        line-height: 1.5;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .hero {
+        min-height: 88vh;
+        display: grid;
+        align-items: end;
+        position: relative;
+        overflow: hidden;
+        background:
+          linear-gradient(90deg, rgba(12, 23, 17, 0.88), rgba(12, 23, 17, 0.46) 46%, rgba(12, 23, 17, 0.08)),
+          url("assets/ai-revenue-audit-hero.png") center / cover no-repeat;
+      }
+
+      .nav {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 22px clamp(18px, 4vw, 52px);
+        color: var(--white);
+      }
+
+      .brand {
+        font-weight: 800;
+        letter-spacing: 0;
+        font-size: 17px;
+      }
+
+      .nav a {
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 700;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+      }
+
+      .hero-inner {
+        width: min(1120px, calc(100% - 36px));
+        margin: 0 auto;
+        padding: 132px 0 68px;
+        color: var(--white);
+        position: relative;
+        z-index: 1;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0 0 20px;
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 36px;
+        height: 3px;
+        background: var(--coral);
+      }
+
+      h1 {
+        margin: 0;
+        max-width: 760px;
+        font-size: clamp(42px, 8vw, 92px);
+        line-height: 0.95;
+        letter-spacing: 0;
+      }
+
+      .hero p {
+        max-width: 660px;
+        margin: 24px 0 0;
+        font-size: clamp(18px, 2.6vw, 24px);
+        color: rgba(255, 255, 255, 0.88);
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 14px;
+        margin-top: 34px;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 48px;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 13px 18px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 15px;
+      }
+
+      .button.primary {
+        background: var(--white);
+        color: var(--green-dark);
+      }
+
+      .button.secondary {
+        color: var(--white);
+        border-color: rgba(255, 255, 255, 0.52);
+      }
+
+      .proof-strip {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        width: min(1120px, calc(100% - 36px));
+        margin: -38px auto 0;
+        position: relative;
+        z-index: 3;
+        background: var(--white);
+        box-shadow: var(--shadow);
+        border: 1px solid var(--line);
+      }
+
+      .proof-item {
+        padding: 22px;
+        min-height: 116px;
+        border-right: 1px solid var(--line);
+      }
+
+      .proof-item:last-child {
+        border-right: 0;
+      }
+
+      .proof-item strong {
+        display: block;
+        font-size: 24px;
+        color: var(--green);
+      }
+
+      .proof-item span {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        font-weight: 650;
+      }
+
+      main {
+        padding: 72px 0;
+      }
+
+      section {
+        width: min(1120px, calc(100% - 36px));
+        margin: 0 auto 74px;
+      }
+
+      .section-head {
+        max-width: 760px;
+        margin-bottom: 26px;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: clamp(30px, 5vw, 52px);
+        line-height: 1.02;
+        letter-spacing: 0;
+      }
+
+      .section-head p {
+        color: var(--muted);
+        font-size: 18px;
+        margin: 16px 0 0;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .card {
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 24px;
+      }
+
+      .card h3 {
+        margin: 0 0 10px;
+        font-size: 20px;
+      }
+
+      .card p,
+      .card li {
+        color: var(--muted);
+      }
+
+      .card ul {
+        margin: 16px 0 0;
+        padding-left: 20px;
+      }
+
+      .price {
+        font-size: 34px;
+        line-height: 1;
+        color: var(--ink);
+        margin: 18px 0 8px;
+        font-weight: 850;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: #e7f1eb;
+        color: var(--green-dark);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .downsell {
+        margin-top: 18px;
+        border: 1px solid var(--line);
+        border-left: 4px solid var(--coral);
+        border-radius: 8px;
+        background: var(--white);
+        padding: 18px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 18px;
+        align-items: center;
+      }
+
+      .downsell h3 {
+        margin: 0 0 6px;
+        font-size: 21px;
+      }
+
+      .downsell p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .process {
+        display: grid;
+        grid-template-columns: 0.85fr 1.15fr;
+        gap: 28px;
+        align-items: start;
+      }
+
+      .steps {
+        display: grid;
+        gap: 12px;
+      }
+
+      .step {
+        display: grid;
+        grid-template-columns: 44px 1fr;
+        gap: 14px;
+        align-items: start;
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 18px;
+      }
+
+      .num {
+        width: 38px;
+        height: 38px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        background: var(--blue);
+        color: var(--white);
+        font-weight: 900;
+      }
+
+      .step h3 {
+        margin: 0 0 4px;
+        font-size: 18px;
+      }
+
+      .step p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .cta-band {
+        width: 100%;
+        margin-bottom: 0;
+        padding: 68px max(18px, calc((100vw - 1120px) / 2));
+        background: #123d2b;
+        color: var(--white);
+      }
+
+      .cta-band .inner {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 24px;
+        align-items: center;
+      }
+
+      .cta-band h2 {
+        max-width: 720px;
+      }
+
+      .cta-band p {
+        color: rgba(255, 255, 255, 0.78);
+        max-width: 650px;
+      }
+
+      footer {
+        padding: 28px 18px;
+        color: var(--muted);
+        text-align: center;
+        font-size: 14px;
+      }
+
+      @media (max-width: 820px) {
+        .hero {
+          min-height: 92vh;
+          background:
+            linear-gradient(180deg, rgba(12, 23, 17, 0.82), rgba(12, 23, 17, 0.56) 55%, rgba(12, 23, 17, 0.22)),
+            url("assets/ai-revenue-audit-hero.png") center / cover no-repeat;
+        }
+
+        .nav {
+          padding: 18px;
+        }
+
+        .hero-inner {
+          padding-bottom: 54px;
+        }
+
+        .proof-strip,
+        .grid,
+        .process,
+        .downsell,
+        .cta-band .inner {
+          grid-template-columns: 1fr;
+        }
+
+        .proof-item {
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .proof-item:last-child {
+          border-bottom: 0;
+        }
+
+        .cta-band .button {
+          width: 100%;
+        }
+
+        .downsell .button {
+          width: 100%;
+        }
+      }
+    </style>
+  <link rel="canonical" href="https://danielward2019111.github.io/money-maker-toolkit/index.html" />
+  <meta property="og:title" content="AI Revenue Leak Audit" />
+  <meta property="og:description" content="48-hour audit that finds where leads, follow-up, checkout, and workflows leak revenue." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://danielward2019111.github.io/money-maker-toolkit/index.html" />
+  <meta property="og:image" content="https://danielward2019111.github.io/money-maker-toolkit/assets/ai-revenue-audit-hero.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI Revenue Leak Audit" />
+  <meta name="twitter:description" content="48-hour audit that finds where leads, follow-up, checkout, and workflows leak revenue." />
+  <meta name="twitter:image" content="https://danielward2019111.github.io/money-maker-toolkit/assets/ai-revenue-audit-hero.png" />
+  <script type="application/ld+json" data-generated="money-maker">{"@context":"https://schema.org","@type":"Service","name":"AI Revenue Leak Audit","serviceType":"Revenue leak audit","offers":{"@type":"Offer","priceCurrency":"GBP","price":"600","availability":"https://schema.org/InStock"},"url":"https://danielward2019111.github.io/money-maker-toolkit/index.html","image":"https://danielward2019111.github.io/money-maker-toolkit/assets/ai-revenue-audit-hero.png","brand":{"@type":"Brand","name":"Money Maker Toolkit"}}</script>
+</head>
+  <body>
+    <header class="hero">
+      <nav class="nav" aria-label="Primary navigation">
+        <div class="brand">AI Revenue Leak Audit</div>
+        <a href="#buy">Book the audit</a>
+      </nav>
+
+      <div class="hero-inner">
+        <div class="eyebrow">48-hour business audit</div>
+        <h1>Find the fastest revenue leaks in your business.</h1>
+        <p>
+          A focused AI-assisted audit for businesses that already have leads, traffic, or sales,
+          but are losing money through slow follow-up, unclear offers, weak conversion points, or manual work.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="order.html?product=audit">Buy the 48-hour audit</a>
+          <a class="button secondary" href="sample-audit.html">See sample output</a>
+          <a class="button secondary" href="calculator.html">Run calculator</a>
+          <a class="button secondary" href="snapshot.html">Buy snapshot</a>
+          <a class="button secondary" href="ops-pack.html">Get the ops pack</a>
+          <a class="button secondary" href="services.html">Small services</a>
+          <a class="button secondary" href="marketplace-kit.html">Marketplace kit</a>
+          <a class="button secondary" href="capability.html">Workflow capability</a>
+          <a class="button secondary" href="intake.html">Start intake</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="proof-strip" aria-label="Audit highlights">
+      <div class="proof-item">
+        <strong>48 hours</strong>
+        <span>Report and assets delivered fast</span>
+      </div>
+      <div class="proof-item">
+        <strong>5 leaks</strong>
+        <span>Ranked by speed and likely impact</span>
+      </div>
+      <div class="proof-item">
+        <strong>3+ assets</strong>
+        <span>Copy, scripts, automations, or fixes</span>
+      </div>
+    </div>
+
+    <main>
+      <section id="deliverables">
+        <div class="section-head">
+          <h2>What you get</h2>
+          <p>
+            This is built for immediate action. No long strategy deck, no vague AI hype, no waiting for a quarterly roadmap.
+          </p>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <h3>Revenue leak map</h3>
+            <p>
+              A clear diagnosis of where money is slipping away across your offer, landing page,
+              lead capture, sales flow, follow-up, onboarding, and admin process.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Prioritized fix plan</h3>
+            <p>
+              The top opportunities ranked by implementation speed, business impact, and confidence,
+              so you know what to fix first.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Ready-to-use assets</h3>
+            <p>
+              Follow-up emails, sales scripts, landing page copy, automation specs, or customer
+              onboarding improvements you can use immediately.
+            </p>
+          </article>
+        </div>
+        <div class="downsell">
+          <div>
+            <h3>Want to see the shape of the output?</h3>
+            <p>Open a generic sample preview with ranked leaks, an example asset, and a 7-day fix plan.</p>
+          </div>
+          <a class="button primary" href="sample-audit.html">View sample audit</a>
+        </div>
+      </section>
+
+      <section>
+        <div class="process">
+          <div class="section-head">
+            <h2>Built for speed</h2>
+            <p>
+              The audit works best when your business already has some demand. I focus on conversion,
+              response, clarity, and repeatable workflows because those can move fastest.
+            </p>
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <div class="num">1</div>
+              <div>
+                <h3>Send the basics</h3>
+                <p>Website, offer, current process, and the bottleneck you care about most.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="num">2</div>
+              <div>
+                <h3>I inspect the flow</h3>
+                <p>Lead capture, checkout, follow-up, positioning, manual steps, and missed opportunities.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="num">3</div>
+              <div>
+                <h3>You get fixes</h3>
+                <p>A concise report, ranked opportunities, and assets designed to be implemented now.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="buy">
+        <div class="section-head">
+          <h2>Choose the audit</h2>
+          <p>Use the standard audit for a fast turnaround, or the emergency audit when time matters more than price.</p>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <span class="tag">Most accessible</span>
+            <h3>Starter Audit</h3>
+            <div class="price">$750 / £600</div>
+            <p>48-hour delivery with report and 3 ready-to-use assets.</p>
+            <a class="button primary" href="order.html?product=audit">Buy Starter</a>
+          </article>
+          <article class="card">
+            <span class="tag">Fastest cash</span>
+            <h3>Emergency Audit</h3>
+            <div class="price">$1,500 / £1,200</div>
+            <p>Same-day delivery with report, 5 assets, and a 30-minute walkthrough.</p>
+            <a class="button primary" href="order.html?product=emergency-audit">Buy Emergency</a>
+            <a class="button primary" href="emergency-audit.html">Details</a>
+          </article>
+          <article class="card">
+            <span class="tag">Highest upside</span>
+            <h3>Fix Sprint</h3>
+            <div class="price">$2,500+</div>
+            <p>Audit plus done-with-you implementation planning for the highest-value fixes.</p>
+            <a class="button primary" href="order.html?product=implementation-sprint">Request Sprint</a>
+            <a class="button primary" href="implementation-sprint.html">Details</a>
+          </article>
+        </div>
+        <div class="downsell">
+          <div>
+            <h3>Not ready for the full audit?</h3>
+            <p>Start with the 30-minute Revenue Leak Checklist for GBP 29, or use the Ops Pack to get the templates and triage app too.</p>
+          </div>
+          <a class="button primary" href="checklist.html">Buy the checklist</a>
+          <a class="button primary" href="snapshot.html">Buy Snapshot</a>
+          <a class="button primary" href="workshop.html">Book Workshop</a>
+          <a class="button primary" href="procurement-cost-audit.html">Cost Audit</a>
+          <a class="button primary" href="automation-spec.html">Automation Spec</a>
+          <a class="button primary" href="ops-pack.html">View Ops Pack</a>
+          <a class="button primary" href="services.html">View Services</a>
+          <a class="button primary" href="capability.html">View Capability</a>
+          <a class="button primary" href="white-label-audit.html">White-label Route</a>
+          <a class="button primary" href="bid-support-sprint.html">Bid Sprint</a>
+          <a class="button primary" href="enterprise-pilot.html">Enterprise Pilot</a>
+          <a class="button primary" href="marketplace-kit.html">Marketplace Kit</a>
+          <a class="button primary" href="intake.html">Start Intake</a>
+        </div>
+      </section>
+
+      <section class="cta-band">
+        <div class="inner">
+          <div>
+            <h2>Ready to find the fastest leak?</h2>
+            <p>
+              Book the audit, send your website and sales process, and get a practical action plan built for revenue speed.
+            </p>
+          </div>
+          <a class="button primary" href="order.html?product=audit">Book now</a>
+          <a class="button primary" href="intake.html">Send intake details</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      Replace payment placeholders before sharing this page.
+    </footer>
+  </body>
+</html>

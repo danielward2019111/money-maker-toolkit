@@ -1,0 +1,269 @@
+{
+  "name": "Money Maker Toolkit",
+  "base_url": "https://danielward2019111.github.io/money-maker-toolkit",
+  "description": "AI revenue leak audits, workflow diagnostics, digital templates, and practical buyer journey tools.",
+  "payment_flow": "https://danielward2019111.github.io/money-maker-toolkit/order.html",
+  "no_guarantee": "No revenue guarantees. Service scope is confirmed before delivery starts.",
+  "offers": [
+    {
+      "id": "checklist",
+      "name": "30-Minute Revenue Leak Checklist",
+      "type": "digital_product",
+      "price_gbp": 29,
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/checklist.html",
+      "order_url": "https://danielward2019111.github.io/money-maker-toolkit/order.html?product=checklist",
+      "description": "Self-serve worksheet for finding missed leads, weak offers, slow follow-up, checkout friction, and manual bottlenecks."
+    },
+    {
+      "id": "affiliate-sprint",
+      "name": "Affiliate Revenue Sprint Pack",
+      "type": "digital_product",
+      "price_gbp": 39,
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/affiliate-sprint-pack.html",
+      "order_url": "https://danielward2019111.github.io/money-maker-toolkit/order.html?product=affiliate-sprint",
+      "description": "7-day ethical setup kit for affiliate/referral routes, applications, disclosures, and useful content."
+    },
+    {
+      "id": "proposal-pack",
+      "name": "Proposal Application Pack",
+      "type": "digital_product",
+      "price_gbp": 49,
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/proposal-pack.html",
+      "order_url": "https://danielward2019111.github.io/money-maker-toolkit/order.html?product=proposal-pack",
+      "description": "Templates for opportunity scoring, discovery-first proposals, paid milestones, and follow-up."
+    },
+    {
+      "id": "ops-pack",
+      "name": "AI Revenue Leak Ops Pack",
+      "type": "digital_product",
+      "price_gbp": 299,
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/ops-pack.html",
+      "order_url": "https://danielward2019111.github.io/money-maker-toolkit/order.html?product=ops-pack",
+      "description": "Checklist, templates, triage app source, and workflow assets for revenue-leak diagnostics."
+    },
+    {
+      "id": "snapshot",
+      "name": "Revenue Leak Snapshot",
+      "type": "service",
+      "price_gbp": 149,
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/snapshot.html",
+      "order_url": "https://danielward2019111.github.io/money-maker-toolkit/order.html?product=snapshot",
+      "description": "One-page review with the 3 clearest leaks, 3 quick fixes, and one ready-to-use asset."
+    },
+    {
+      "id": "landing-copy",
+      "name": "Landing Page Copy Rebuild",
+      "type": "service",
+      "price_gbp": 249,
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/services.html",
+      "order_url": "https://danielward2019111.github.io/money-maker-toolkit/order.html?product=landing-copy",
+      "description": "Headline, subhead, CTA, offer section, proof section, objection handling, FAQ, and section order."
+    },
+    {
+      "id": "follow-up-pack",
+      "name": "Follow-Up Sequence Fix Pack",
+      "type": "service",
+      "price_gbp": 199,
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/services.html",
+      "order_url": "https://danielward2019111.github.io/money-maker-toolkit/order.html?product=follow-up-pack",
+      "description": "Five plain-text follow-up messages with timing, variables, and a simple use plan."
+    },
+    {
+      "id": "competitor-scan",
+      "name": "Competitor Positioning Scan",
+      "type": "service",
+      "price_gbp": 250,
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/services.html",
+      "order_url": "https://danielward2019111.github.io/money-maker-toolkit/order.html?product=competitor-scan",
+      "description": "Competitor table, positioning gaps, recommended offer angle, and public source list."
+    },
+    {
+      "id": "defensive-mini-audit",
+      "name": "Defensive Security Mini-Audit",
+      "type": "service",
+      "price_gbp": 300,
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/services.html",
+      "order_url": "https://danielward2019111.github.io/money-maker-toolkit/order.html?product=defensive-mini-audit",
+      "description": "Public-surface review only: security headers, visible login surfaces, public errors, and practical fixes.",
+      "price_note": "from"
+    },
+    {
+      "id": "proposal-service",
+      "name": "Proposal Pack",
+      "type": "service",
+      "price_gbp": 199,
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/services.html",
+      "order_url": "https://danielward2019111.github.io/money-maker-toolkit/order.html?product=proposal-service",
+      "description": "Proposal draft, discovery questions, scope options, and follow-up message for a real opportunity."
+    },
+    {
+      "id": "audit",
+      "name": "AI Revenue Leak Audit",
+      "type": "service",
+      "price_gbp": 600,
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/index.html",
+      "order_url": "https://danielward2019111.github.io/money-maker-toolkit/order.html?product=audit",
+      "description": "48-hour audit of website, offer, enquiry path, follow-up, sales handoff, onboarding, and manual admin."
+    },
+    {
+      "id": "workshop",
+      "name": "90-Minute AI Revenue Leak Workshop",
+      "type": "service",
+      "price_gbp": 750,
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/workshop.html",
+      "order_url": "https://danielward2019111.github.io/money-maker-toolkit/order.html?product=workshop",
+      "description": "Live working session to map revenue leaks, AI workflow opportunities, priorities, and next actions."
+    },
+    {
+      "id": "cost-leak-audit",
+      "name": "AI Cost Leak Audit",
+      "type": "service",
+      "price_gbp": 900,
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/procurement-cost-audit.html",
+      "order_url": "https://danielward2019111.github.io/money-maker-toolkit/order.html?product=cost-leak-audit",
+      "description": "48-hour review of SaaS spend, duplicated tools, manual admin, rework, approval delays, and workflow waste."
+    },
+    {
+      "id": "automation-spec",
+      "name": "Plain-English Automation Spec",
+      "type": "service",
+      "price_gbp": 350,
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/automation-spec.html",
+      "order_url": "https://danielward2019111.github.io/money-maker-toolkit/order.html?product=automation-spec",
+      "description": "Builder-ready automation spec for one manual workflow, including triggers, fields, steps, exceptions, approval points, risks, and backlog."
+    },
+    {
+      "id": "emergency-audit",
+      "name": "Emergency AI Revenue Leak Audit",
+      "type": "service",
+      "price_gbp": 1200,
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/emergency-audit.html",
+      "order_url": "https://danielward2019111.github.io/money-maker-toolkit/order.html?product=emergency-audit",
+      "description": "Same-day audit with report, 5 ready-to-use assets, and a 30-minute walkthrough."
+    },
+    {
+      "id": "workflow-discovery",
+      "name": "AI Workflow Discovery",
+      "type": "service",
+      "price_gbp": 1500,
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/capability.html",
+      "order_url": "https://danielward2019111.github.io/money-maker-toolkit/order.html?product=workflow-discovery",
+      "description": "Workflow map, manual task inventory, automation opportunities, implementation roadmap, and build-ready specs.",
+      "price_note": "from"
+    },
+    {
+      "id": "implementation-sprint",
+      "name": "AI Revenue Leak Implementation Sprint",
+      "type": "service",
+      "price_gbp": 2500,
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/implementation-sprint.html",
+      "order_url": "https://danielward2019111.github.io/money-maker-toolkit/order.html?product=implementation-sprint",
+      "description": "Done-with-you implementation sprint for the highest-value conversion, follow-up, booking, handoff, or workflow fixes.",
+      "price_note": "from"
+    },
+    {
+      "id": "white-label-audit",
+      "name": "White-Label AI Revenue Leak Audit System",
+      "type": "partner_route",
+      "price_gbp": 3000,
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/white-label-audit.html",
+      "order_url": "https://danielward2019111.github.io/money-maker-toolkit/order.html?product=white-label-audit",
+      "description": "White-label audit assets and delivery support for agencies, consultants, and operators serving client accounts.",
+      "price_note": "from"
+    },
+    {
+      "id": "bid-support-sprint",
+      "name": "AI Bid Support Sprint",
+      "type": "partner_route",
+      "price_gbp": 5000,
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/bid-support-sprint.html",
+      "order_url": "https://danielward2019111.github.io/money-maker-toolkit/order.html?product=bid-support-sprint",
+      "description": "Fast AI-assisted bid and proposal support for workflow mapping, implementation notes, evidence structure, and delivery language.",
+      "price_note": "from"
+    },
+    {
+      "id": "enterprise-pilot",
+      "name": "Enterprise AI Workflow Pilot",
+      "type": "enterprise_route",
+      "price_gbp": 10000,
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/enterprise-pilot.html",
+      "order_url": "https://danielward2019111.github.io/money-maker-toolkit/order.html?product=enterprise-pilot",
+      "description": "Pilot planning, workflow mapping, control design, and implementation-readiness for AI-assisted operations.",
+      "price_note": "from"
+    }
+  ],
+  "resources": [
+    {
+      "name": "Offer page",
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/index.html"
+    },
+    {
+      "name": "Revenue leak calculator",
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/calculator.html"
+    },
+    {
+      "name": "Order page",
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/order.html"
+    },
+    {
+      "name": "Workshop",
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/workshop.html"
+    },
+    {
+      "name": "Cost leak audit",
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/procurement-cost-audit.html"
+    },
+    {
+      "name": "Automation spec",
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/automation-spec.html"
+    },
+    {
+      "name": "Emergency audit",
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/emergency-audit.html"
+    },
+    {
+      "name": "Implementation sprint",
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/implementation-sprint.html"
+    },
+    {
+      "name": "White-label audit route",
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/white-label-audit.html"
+    },
+    {
+      "name": "Bid support sprint",
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/bid-support-sprint.html"
+    },
+    {
+      "name": "Enterprise pilot",
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/enterprise-pilot.html"
+    },
+    {
+      "name": "Marketplace kit",
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/marketplace-kit.html"
+    },
+    {
+      "name": "Product catalog",
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/products.html"
+    },
+    {
+      "name": "Revenue Leak Snapshot",
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/snapshot.html"
+    },
+    {
+      "name": "Revenue Leak Triage app",
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/apps/revenue-leak-triage/index.html"
+    },
+    {
+      "name": "Use cases",
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/use-cases.html"
+    },
+    {
+      "name": "Sample audit",
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/sample-audit.html"
+    },
+    {
+      "name": "Capability statement",
+      "url": "https://danielward2019111.github.io/money-maker-toolkit/capability.html"
+    }
+  ]
+}

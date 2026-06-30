@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Revenue Leak Calculator</title>
+    <meta
+      name="description"
+      content="Estimate where enquiry, follow-up, booking, checkout, and workflow friction may be leaking revenue before buying more traffic."
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #17211b;
+        --muted: #52615a;
+        --paper: #f7f4ec;
+        --white: #ffffff;
+        --line: #d9e2dc;
+        --green: #136f63;
+        --green-dark: #0c5538;
+        --coral: #c95843;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: var(--paper);
+        line-height: 1.5;
+      }
+      a { color: inherit; }
+      header {
+        min-height: 62vh;
+        display: grid;
+        align-items: end;
+        color: var(--white);
+        background:
+          linear-gradient(90deg, rgba(13, 26, 19, .94), rgba(13, 26, 19, .56)),
+          url("assets/ai-revenue-audit-hero.png") center / cover no-repeat;
+      }
+      .wrap, section {
+        width: min(1080px, calc(100% - 36px));
+        margin: 0 auto;
+      }
+      .hero-inner { padding: 104px 0 54px; }
+      .eyebrow {
+        margin: 0 0 18px;
+        font-size: 13px;
+        font-weight: 850;
+        text-transform: uppercase;
+        color: rgba(255,255,255,.78);
+      }
+      h1 {
+        margin: 0;
+        max-width: 860px;
+        font-size: clamp(42px, 8vw, 86px);
+        line-height: .96;
+        letter-spacing: 0;
+      }
+      header p {
+        max-width: 760px;
+        margin: 24px 0 0;
+        color: rgba(255,255,255,.88);
+        font-size: clamp(18px, 2.4vw, 23px);
+      }
+      main { padding: 46px 0 76px; }
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 380px;
+        gap: 18px;
+        align-items: start;
+      }
+      .panel {
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 22px;
+      }
+      h2 {
+        margin: 0 0 14px;
+        font-size: clamp(28px, 4vw, 44px);
+        line-height: 1.05;
+        letter-spacing: 0;
+      }
+      .lead { max-width: 780px; color: var(--muted); font-size: 18px; }
+      .fields {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 850;
+      }
+      input, select, textarea {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 13px 14px;
+        background: #fbfaf6;
+        color: var(--ink);
+        font: inherit;
+      }
+      .result {
+        display: grid;
+        gap: 12px;
+      }
+      .metric {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 16px;
+        background: #fbfaf6;
+      }
+      .metric strong {
+        display: block;
+        color: var(--green);
+        font-size: clamp(28px, 5vw, 48px);
+        line-height: 1;
+      }
+      .metric span, .muted { color: var(--muted); }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+      }
+      .button {
+        display: inline-flex;
+        min-height: 48px;
+        align-items: center;
+        justify-content: center;
+        padding: 13px 18px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        background: var(--green);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 850;
+      }
+      .button.secondary {
+        background: transparent;
+        color: var(--green);
+        border-color: var(--green);
+      }
+      .warning {
+        border-left: 4px solid var(--coral);
+        color: var(--muted);
+      }
+      @media (max-width: 860px) {
+        .layout, .fields { grid-template-columns: 1fr; }
+      }
+    </style>
+  <link rel="canonical" href="https://danielward2019111.github.io/money-maker-toolkit/calculator.html" />
+  <meta property="og:title" content="Revenue Leak Calculator" />
+  <meta property="og:description" content="Estimate where enquiry, follow-up, booking, checkout, and workflow friction may be leaking revenue before buying more traffic." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://danielward2019111.github.io/money-maker-toolkit/calculator.html" />
+  <meta property="og:image" content="https://danielward2019111.github.io/money-maker-toolkit/assets/ai-revenue-audit-hero.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Revenue Leak Calculator" />
+  <meta name="twitter:description" content="Estimate where enquiry, follow-up, booking, checkout, and workflow friction may be leaking revenue before buying more traffic." />
+  <meta name="twitter:image" content="https://danielward2019111.github.io/money-maker-toolkit/assets/ai-revenue-audit-hero.png" />
+  <script type="application/ld+json" data-generated="money-maker">{"@context":"https://schema.org","@type":"WebApplication","name":"Revenue Leak Calculator","applicationCategory":"BusinessApplication","operatingSystem":"Any","url":"https://danielward2019111.github.io/money-maker-toolkit/calculator.html"}</script>
+</head>
+  <body>
+    <header>
+      <div class="wrap hero-inner">
+        <p class="eyebrow">Revenue leak calculator</p>
+        <h1>Estimate what small conversion leaks may be costing.</h1>
+        <p>Use your own enquiry, order, and average value numbers to create a quick range. The output is an estimate, not a guarantee.</p>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <div class="layout">
+        <section class="panel">
+          <h2>Your numbers</h2>
+          <p class="lead">Change the inputs to model a practical improvement from faster follow-up, clearer offers, better booking paths, or fewer manual handoff losses.</p>
+          <div class="fields">
+            <div>
+              <label for="visitors">Monthly visitors or enquiries</label>
+              <input id="visitors" type="number" min="0" step="1" value="1000" />
+            </div>
+            <div>
+              <label for="leadRate">Current enquiry / lead rate (%)</label>
+              <input id="leadRate" type="number" min="0" max="100" step="0.1" value="3" />
+            </div>
+            <div>
+              <label for="closeRate">Current lead-to-customer rate (%)</label>
+              <input id="closeRate" type="number" min="0" max="100" step="0.1" value="20" />
+            </div>
+            <div>
+              <label for="value">Average customer value (£)</label>
+              <input id="value" type="number" min="0" step="1" value="600" />
+            </div>
+            <div>
+              <label for="uplift">Possible practical uplift (%)</label>
+              <input id="uplift" type="number" min="0" max="100" step="0.1" value="15" />
+            </div>
+            <div>
+              <label for="mode">Likely leak area</label>
+              <select id="mode">
+                <option value="follow-up">Follow-up speed and consistency</option>
+                <option value="offer">Offer clarity and page conversion</option>
+                <option value="checkout">Booking or checkout friction</option>
+                <option value="workflow">Manual workflow handoffs</option>
+              </select>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="button" id="copyBrief" type="button">Copy brief</button>
+            <a class="button secondary" href="apps/revenue-leak-triage/index.html">Run triage app</a>
+          </div>
+        </section>
+
+        <aside class="panel result">
+          <h2>Estimate</h2>
+          <div class="metric">
+            <span>Current estimated monthly revenue</span>
+            <strong id="currentRevenue">£0</strong>
+          </div>
+          <div class="metric">
+            <span>Possible monthly upside range</span>
+            <strong id="upsideRange">£0-£0</strong>
+          </div>
+          <div class="metric">
+            <span>Possible annual upside range</span>
+            <strong id="annualRange">£0-£0</strong>
+          </div>
+          <p class="warning panel" id="recommendation">Enter your numbers to choose a sensible next step.</p>
+          <div class="actions">
+            <a class="button" id="primaryOffer" href="order.html?product=audit">Order audit</a>
+            <a class="button secondary" href="order.html?product=checklist">Buy checklist</a>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <script>
+      const fields = {
+        visitors: document.querySelector("#visitors"),
+        leadRate: document.querySelector("#leadRate"),
+        closeRate: document.querySelector("#closeRate"),
+        value: document.querySelector("#value"),
+        uplift: document.querySelector("#uplift"),
+        mode: document.querySelector("#mode"),
+        currentRevenue: document.querySelector("#currentRevenue"),
+        upsideRange: document.querySelector("#upsideRange"),
+        annualRange: document.querySelector("#annualRange"),
+        recommendation: document.querySelector("#recommendation"),
+        primaryOffer: document.querySelector("#primaryOffer")
+      };
+
+      function number(id) {
+        return Math.max(0, Number(fields[id].value) || 0);
+      }
+
+      function money(value) {
+        return new Intl.NumberFormat("en-GB", {
+          style: "currency",
+          currency: "GBP",
+          maximumFractionDigits: 0
+        }).format(Math.round(value));
+      }
+
+      function recommendation(upside, mode) {
+        if (upside < 300) {
+          fields.primaryOffer.href = "order.html?product=checklist";
+          fields.primaryOffer.textContent = "Buy checklist";
+          return "The estimate is modest. Start with the checklist or triage app before paying for done-for-you work.";
+        }
+        if (upside < 1500) {
+          fields.primaryOffer.href = "order.html?product=snapshot";
+          fields.primaryOffer.textContent = "Order snapshot";
+          return `The likely upside may justify a small paid snapshot focused on ${mode}.`;
+        }
+        if (upside >= 5000) {
+          fields.primaryOffer.href = "order.html?product=implementation-sprint";
+          fields.primaryOffer.textContent = "Request sprint";
+          return `The upside range may justify an implementation sprint focused on ${mode}, starting from the highest-value fixes.`;
+        }
+        fields.primaryOffer.href = "order.html?product=audit";
+        fields.primaryOffer.textContent = "Order audit";
+        return `The upside range may justify a 48-hour audit focused on ${mode}, ranked fixes, and ready-to-use assets.`;
+      }
+
+      function render() {
+        const visitors = number("visitors");
+        const leadRate = number("leadRate") / 100;
+        const closeRate = number("closeRate") / 100;
+        const value = number("value");
+        const uplift = number("uplift") / 100;
+        const current = visitors * leadRate * closeRate * value;
+        const low = current * Math.max(0, uplift * 0.4);
+        const high = current * uplift;
+        fields.currentRevenue.textContent = money(current);
+        fields.upsideRange.textContent = `${money(low)}-${money(high)}`;
+        fields.annualRange.textContent = `${money(low * 12)}-${money(high * 12)}`;
+        fields.recommendation.textContent = recommendation(high, fields.mode.options[fields.mode.selectedIndex].text.toLowerCase());
+      }
+
+      function brief() {
+        return [
+          "Revenue leak calculator brief",
+          "",
+          `Monthly visitors/enquiries: ${fields.visitors.value}`,
+          `Lead rate: ${fields.leadRate.value}%`,
+          `Lead-to-customer rate: ${fields.closeRate.value}%`,
+          `Average customer value: £${fields.value.value}`,
+          `Possible uplift modelled: ${fields.uplift.value}%`,
+          `Likely leak area: ${fields.mode.options[fields.mode.selectedIndex].text}`,
+          `Current estimated monthly revenue: ${fields.currentRevenue.textContent}`,
+          `Possible monthly upside range: ${fields.upsideRange.textContent}`,
+          `Possible annual upside range: ${fields.annualRange.textContent}`,
+          "",
+          "This is an estimate, not a guarantee."
+        ].join("\n");
+      }
+
+      Object.values(fields).forEach((field) => {
+        if (field && field.addEventListener) field.addEventListener("input", render);
+      });
+      fields.mode.addEventListener("change", render);
+      document.querySelector("#copyBrief").addEventListener("click", async () => {
+        await navigator.clipboard.writeText(brief());
+        document.querySelector("#copyBrief").textContent = "Copied";
+        setTimeout(() => document.querySelector("#copyBrief").textContent = "Copy brief", 1400);
+      });
+      render();
+    </script>
+  </body>
+</html>

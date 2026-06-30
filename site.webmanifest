@@ -1,0 +1,9 @@
+{
+  "name": "Money Maker Toolkit",
+  "short_name": "Money Maker",
+  "start_url": "/money-maker-toolkit/index.html",
+  "display": "standalone",
+  "background_color": "#f7f4ec",
+  "theme_color": "#136f63",
+  "description": "Revenue leak audits, practical AI workflow tools, and digital packs for service businesses and operators."
+}

@@ -1,0 +1,50 @@
+# Money Maker Toolkit
+
+AI revenue leak audits, workflow diagnostics, digital templates, and buyer journey tools.
+
+## Key Links
+- Offer page: https://danielward2019111.github.io/money-maker-toolkit/index.html
+- Revenue leak calculator: https://danielward2019111.github.io/money-maker-toolkit/calculator.html
+- Order page: https://danielward2019111.github.io/money-maker-toolkit/order.html
+- Workshop: https://danielward2019111.github.io/money-maker-toolkit/workshop.html
+- Cost leak audit: https://danielward2019111.github.io/money-maker-toolkit/procurement-cost-audit.html
+- Automation spec: https://danielward2019111.github.io/money-maker-toolkit/automation-spec.html
+- Emergency audit: https://danielward2019111.github.io/money-maker-toolkit/emergency-audit.html
+- Implementation sprint: https://danielward2019111.github.io/money-maker-toolkit/implementation-sprint.html
+- White-label audit route: https://danielward2019111.github.io/money-maker-toolkit/white-label-audit.html
+- Bid support sprint: https://danielward2019111.github.io/money-maker-toolkit/bid-support-sprint.html
+- Enterprise pilot: https://danielward2019111.github.io/money-maker-toolkit/enterprise-pilot.html
+- Marketplace kit: https://danielward2019111.github.io/money-maker-toolkit/marketplace-kit.html
+- Product catalog: https://danielward2019111.github.io/money-maker-toolkit/products.html
+- Revenue Leak Snapshot: https://danielward2019111.github.io/money-maker-toolkit/snapshot.html
+- Revenue Leak Triage app: https://danielward2019111.github.io/money-maker-toolkit/apps/revenue-leak-triage/index.html
+- Use cases: https://danielward2019111.github.io/money-maker-toolkit/use-cases.html
+- Sample audit: https://danielward2019111.github.io/money-maker-toolkit/sample-audit.html
+- Capability statement: https://danielward2019111.github.io/money-maker-toolkit/capability.html
+
+## Offers
+- 30-Minute Revenue Leak Checklist (GBP 29): https://danielward2019111.github.io/money-maker-toolkit/order.html?product=checklist
+- Affiliate Revenue Sprint Pack (GBP 39): https://danielward2019111.github.io/money-maker-toolkit/order.html?product=affiliate-sprint
+- Proposal Application Pack (GBP 49): https://danielward2019111.github.io/money-maker-toolkit/order.html?product=proposal-pack
+- AI Revenue Leak Ops Pack (GBP 299): https://danielward2019111.github.io/money-maker-toolkit/order.html?product=ops-pack
+- Revenue Leak Snapshot (GBP 149): https://danielward2019111.github.io/money-maker-toolkit/order.html?product=snapshot
+- Landing Page Copy Rebuild (GBP 249): https://danielward2019111.github.io/money-maker-toolkit/order.html?product=landing-copy
+- Follow-Up Sequence Fix Pack (GBP 199): https://danielward2019111.github.io/money-maker-toolkit/order.html?product=follow-up-pack
+- Competitor Positioning Scan (GBP 250): https://danielward2019111.github.io/money-maker-toolkit/order.html?product=competitor-scan
+- Defensive Security Mini-Audit (from GBP 300): https://danielward2019111.github.io/money-maker-toolkit/order.html?product=defensive-mini-audit
+- Proposal Pack (GBP 199): https://danielward2019111.github.io/money-maker-toolkit/order.html?product=proposal-service
+- AI Revenue Leak Audit (GBP 600): https://danielward2019111.github.io/money-maker-toolkit/order.html?product=audit
+- 90-Minute AI Revenue Leak Workshop (GBP 750): https://danielward2019111.github.io/money-maker-toolkit/order.html?product=workshop
+- AI Cost Leak Audit (GBP 900): https://danielward2019111.github.io/money-maker-toolkit/order.html?product=cost-leak-audit
+- Plain-English Automation Spec (GBP 350): https://danielward2019111.github.io/money-maker-toolkit/order.html?product=automation-spec
+- Emergency AI Revenue Leak Audit (GBP 1200): https://danielward2019111.github.io/money-maker-toolkit/order.html?product=emergency-audit
+- AI Workflow Discovery (from GBP 1500): https://danielward2019111.github.io/money-maker-toolkit/order.html?product=workflow-discovery
+- AI Revenue Leak Implementation Sprint (from GBP 2500): https://danielward2019111.github.io/money-maker-toolkit/order.html?product=implementation-sprint
+- White-Label AI Revenue Leak Audit System (from GBP 3000): https://danielward2019111.github.io/money-maker-toolkit/order.html?product=white-label-audit
+- AI Bid Support Sprint (from GBP 5000): https://danielward2019111.github.io/money-maker-toolkit/order.html?product=bid-support-sprint
+- Enterprise AI Workflow Pilot (from GBP 10000): https://danielward2019111.github.io/money-maker-toolkit/order.html?product=enterprise-pilot
+
+## Use Notes
+- No revenue guarantees.
+- Paid product files are not publicly linked; use the order page first.
+- Outreach email is paused; use these links for inbound, marketplace, profile, and account setup contexts.

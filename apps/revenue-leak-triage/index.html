@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Revenue Leak Triage</title>
+  <meta name="description" content="A self-serve triage tool for finding the highest-risk revenue leaks in an existing customer journey.">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17221f;
+      --muted: #5f6f68;
+      --line: #d9e2dd;
+      --soft: #f4f8f5;
+      --paper: #ffffff;
+      --accent: #0f7b63;
+      --accent-dark: #095745;
+      --warn: #b85c00;
+      --danger: #aa2737;
+      --blue: #315c9f;
+      --shadow: 0 18px 60px rgba(23, 34, 31, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--soft);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+    }
+
+    .mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--accent);
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .button {
+      appearance: none;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: 10px 14px;
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font: inherit;
+      font-weight: 750;
+      text-decoration: none;
+      cursor: pointer;
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .button:hover {
+      background: var(--accent-dark);
+    }
+
+    .button.secondary {
+      background: #fff;
+      border-color: var(--line);
+      color: var(--ink);
+    }
+
+    .button.secondary:hover {
+      background: #f7faf8;
+    }
+
+    .button.ghost {
+      background: transparent;
+      color: var(--accent-dark);
+      border-color: transparent;
+    }
+
+    .hero {
+      background:
+        linear-gradient(120deg, rgba(9, 87, 69, 0.92), rgba(23, 34, 31, 0.84)),
+        url("data:image/svg+xml,%3Csvg width='1600' height='900' viewBox='0 0 1600 900' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1600' height='900' fill='%23dfe9e4'/%3E%3Cg fill='none' stroke='%2395aea3' stroke-width='2' opacity='.55'%3E%3Cpath d='M120 620 C320 410 430 720 650 520 S940 300 1130 470 1380 620 1490 350'/%3E%3Cpath d='M90 280 H410 L530 210 H760 L880 330 H1190 L1300 250 H1510'/%3E%3Cpath d='M130 710 H310 V570 H520 V650 H750 V455 H980 V540 H1240 V385 H1485'/%3E%3C/g%3E%3Cg fill='%23ffffff' opacity='.72'%3E%3Ccircle cx='410' cy='280' r='8'/%3E%3Ccircle cx='650' cy='520' r='8'/%3E%3Ccircle cx='980' cy='540' r='8'/%3E%3Ccircle cx='1240' cy='385' r='8'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+    }
+
+    .hero-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 72px 20px 54px;
+      min-height: min(680px, calc(100vh - 70px));
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(360px, 470px);
+      align-items: center;
+      gap: 48px;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 800;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 760px;
+      font-size: clamp(2.5rem, 8vw, 5.9rem);
+    }
+
+    h2 {
+      font-size: clamp(1.7rem, 3vw, 2.55rem);
+    }
+
+    h3 {
+      font-size: 1.1rem;
+    }
+
+    .hero-copy {
+      max-width: 720px;
+      margin: 20px 0 0;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 1.12rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .hero-actions .button.secondary {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.34);
+      color: #fff;
+    }
+
+    .mini-panel {
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--ink);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .mini-panel ul {
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .mini-panel li {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .tick {
+      width: 24px;
+      height: 24px;
+      border-radius: 7px;
+      display: grid;
+      place-items: center;
+      background: #dff1ea;
+      color: var(--accent-dark);
+      font-weight: 900;
+    }
+
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 44px 20px 70px;
+    }
+
+    .tool-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(330px, 410px);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .section-intro {
+      margin-bottom: 22px;
+      max-width: 820px;
+    }
+
+    .section-intro p {
+      color: var(--muted);
+      margin: 10px 0 0;
+    }
+
+    .form-surface,
+    .result-surface,
+    .price-card,
+    .launch-strip {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 8px 28px rgba(23, 34, 31, 0.06);
+    }
+
+    .form-surface {
+      padding: 22px;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+      font-size: 0.92rem;
+      font-weight: 750;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid #c9d5cf;
+      border-radius: 8px;
+      padding: 11px 12px;
+      font: inherit;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .question-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .question {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: #fbfdfb;
+    }
+
+    .question-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: start;
+      margin-bottom: 12px;
+    }
+
+    .question p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .score-options {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .score-options label {
+      position: relative;
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 760;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .score-options input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .score-options span {
+      display: grid;
+      place-items: center;
+      min-height: 42px;
+      border: 1px solid #c9d5cf;
+      border-radius: 8px;
+      background: #fff;
+      padding: 8px;
+    }
+
+    .score-options input:checked + span {
+      border-color: var(--accent);
+      background: #dff1ea;
+      color: var(--accent-dark);
+    }
+
+    .result-surface {
+      position: sticky;
+      top: 82px;
+      padding: 20px;
+    }
+
+    .meter {
+      margin: 14px 0 18px;
+      height: 14px;
+      overflow: hidden;
+      background: #e4ece7;
+      border-radius: 99px;
+    }
+
+    .meter-fill {
+      width: 0%;
+      height: 100%;
+      background: var(--accent);
+      transition: width 180ms ease;
+    }
+
+    .result-score {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .result-score strong {
+      font-size: 2.4rem;
+      line-height: 1;
+    }
+
+    .priority-list,
+    .asset-list,
+    .pricing-grid,
+    .steps {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .priority-list li,
+    .asset-list li {
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+    }
+
+    .priority-list strong {
+      display: block;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .tool-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .print-output {
+      margin-top: 18px;
+      border: 1px dashed #b4c4bd;
+      border-radius: 8px;
+      padding: 14px;
+      background: #fbfdfb;
+      white-space: pre-wrap;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.86rem;
+    }
+
+    .pricing {
+      margin-top: 48px;
+    }
+
+    .pricing-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 20px;
+    }
+
+    .price-card {
+      padding: 20px;
+    }
+
+    .price {
+      margin: 14px 0 4px;
+      font-size: 2rem;
+      font-weight: 850;
+    }
+
+    .price-card p {
+      color: var(--muted);
+      margin: 0 0 16px;
+    }
+
+    .price-card ul {
+      margin: 16px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .launch-strip {
+      margin-top: 28px;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .launch-strip p {
+      margin: 6px 0 0;
+      color: var(--muted);
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      padding: 24px 20px 42px;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .hero-inner,
+      .tool-layout,
+      .launch-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-inner {
+        padding-top: 54px;
+      }
+
+      .result-surface {
+        position: static;
+      }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-actions,
+      .hero-actions,
+      .tool-actions {
+        width: 100%;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .field-grid,
+      .score-options {
+        grid-template-columns: 1fr;
+      }
+
+      .question-top {
+        display: block;
+      }
+    }
+
+    @media print {
+      .site-header,
+      .hero,
+      .pricing,
+      footer,
+      .form-surface,
+      .tool-actions {
+        display: none;
+      }
+
+      body,
+      main {
+        background: #fff;
+        padding: 0;
+      }
+
+      .tool-layout {
+        display: block;
+      }
+
+      .result-surface {
+        border: 0;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Main">
+      <div class="brand"><span class="mark">R</span> Revenue Leak Triage</div>
+      <div class="nav-actions">
+        <a class="button ghost" href="#triage">Run triage</a>
+        <a class="button secondary" href="#pricing">Pricing</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="eyebrow">Self-serve revenue review</p>
+        <h1>Revenue Leak Triage</h1>
+        <p class="hero-copy">Find the weakest points in an existing customer journey before spending more on traffic. Score your offer, lead capture, follow-up, checkout, onboarding, and manual work in under 15 minutes.</p>
+        <div class="hero-actions">
+          <a class="button" href="#triage">Start free triage</a>
+          <a class="button secondary" href="#pricing">View paid options</a>
+        </div>
+      </div>
+      <aside class="mini-panel" aria-label="What this creates">
+        <h2>What you get</h2>
+        <ul>
+          <li><span class="tick">✓</span><span>A risk score across six revenue stages.</span></li>
+          <li><span class="tick">✓</span><span>The top three likely leak areas to inspect first.</span></li>
+          <li><span class="tick">✓</span><span>A copy-ready brief you can print or send for review.</span></li>
+          <li><span class="tick">✓</span><span>Clear next steps if you want the full audit done for you.</span></li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <main>
+    <section id="triage" aria-labelledby="triage-title">
+      <div class="section-intro">
+        <p class="eyebrow">Diagnostic app</p>
+        <h2 id="triage-title">Score the customer journey</h2>
+        <p>Use honest inputs. This tool does not estimate revenue or guarantee outcomes; it helps identify where a practical review should start.</p>
+      </div>
+
+      <div class="tool-layout">
+        <form class="form-surface" id="triageForm">
+          <div class="field-grid">
+            <label>
+              Business type
+              <input id="businessType" name="businessType" placeholder="Agency, clinic, ecommerce, consultant">
+            </label>
+            <label>
+              Current lead source
+              <select id="leadSource" name="leadSource">
+                <option>Inbound enquiries</option>
+                <option>Paid traffic</option>
+                <option>Referrals</option>
+                <option>Marketplace leads</option>
+                <option>Outbound sales</option>
+                <option>Mixed or unsure</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="question-list" id="questions"></div>
+
+          <label style="margin-top: 18px;">
+            Notes or constraints
+            <textarea id="notes" name="notes" placeholder="Example: We get enquiries but follow-up is slow. Checkout link exists but offer page is vague."></textarea>
+          </label>
+        </form>
+
+        <aside class="result-surface" aria-live="polite">
+          <p class="eyebrow">Live result</p>
+          <h2 id="riskLabel">Run the triage</h2>
+          <div class="result-score"><strong id="riskScore">0</strong><span class="muted">/ 100 risk</span></div>
+          <div class="meter" aria-hidden="true"><div class="meter-fill" id="meterFill"></div></div>
+          <p id="riskSummary" class="muted">Answer the six sections to generate a practical triage summary.</p>
+
+          <h3 style="margin-top: 20px;">Top priorities</h3>
+          <ul class="priority-list" id="priorityList">
+            <li class="muted">No priorities yet.</li>
+          </ul>
+
+          <h3 style="margin-top: 20px;">Recommended assets</h3>
+          <ul class="asset-list" id="assetList">
+            <li class="muted">Assets appear after scoring.</li>
+          </ul>
+
+          <div class="tool-actions">
+            <button class="button" type="button" id="copyBrief">Copy brief</button>
+            <button class="button secondary" type="button" id="printBrief">Print</button>
+          </div>
+
+          <div class="print-output" id="briefOutput">Brief will appear here.</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="pricing" id="pricing" aria-labelledby="pricing-title">
+      <div class="section-intro">
+        <p class="eyebrow">Product ladder</p>
+        <h2 id="pricing-title">Buy the level of help you need</h2>
+        <p>Start with a low-cost self-serve product, or ask for a done-for-you review when you want a ranked fix plan and ready-to-use assets.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <article class="price-card">
+          <h3>Checklist</h3>
+          <div class="price">£29</div>
+          <p>Self-serve PDF for a quick 30-minute review.</p>
+          <a class="button secondary" href="../../order.html?product=checklist">Buy checklist</a>
+          <ul>
+            <li>Revenue leak worksheet</li>
+            <li>7-day fix planner</li>
+            <li>Best for do-it-yourself review</li>
+          </ul>
+        </article>
+
+        <article class="price-card">
+          <h3>48-hour audit</h3>
+          <div class="price">£600</div>
+          <p>Done-for-you review with a ranked plan and three practical assets.</p>
+          <a class="button" href="../../order.html?product=audit">Book audit</a>
+          <ul>
+            <li>Top five leak areas</li>
+            <li>Prioritised fix plan</li>
+            <li>Three ready-to-use assets</li>
+          </ul>
+        </article>
+
+        <article class="price-card">
+          <h3>Implementation sprint</h3>
+          <div class="price">From £2,000</div>
+          <p>Hands-on help turning the audit into live fixes.</p>
+          <a class="button secondary" href="../../order.html?product=workflow-discovery">Discuss sprint</a>
+          <ul>
+            <li>Scope agreed before payment</li>
+            <li>Copy, workflow, or automation fixes</li>
+            <li>Best after a completed audit</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="launch-strip">
+        <div>
+          <h3>Buyer-facing promise</h3>
+          <p>A practical diagnostic for finding likely friction in your sales journey. No revenue guarantees, no hidden financial claims, just a faster way to decide what to inspect first.</p>
+        </div>
+        <a class="button" href="#triage">Run the app</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Revenue Leak Triage is a diagnostic product. It does not provide legal, financial, or accounting advice.
+  </footer>
+
+  <script>
+    const dimensions = [
+      {
+        id: "offer",
+        title: "Offer clarity",
+        hint: "Can a qualified buyer understand the outcome, price range, delivery shape, and next action without asking?",
+        asset: "Rewrite the offer block: outcome, buyer fit, deliverables, price, and one call to action."
+      },
+      {
+        id: "capture",
+        title: "Lead capture",
+        hint: "Are enquiries, quote requests, bookings, or carts captured reliably with enough context to follow up?",
+        asset: "Create a short intake form and route every enquiry to one tracked inbox or sheet."
+      },
+      {
+        id: "followup",
+        title: "Follow-up speed",
+        hint: "Does a new lead receive a useful response within the same working day?",
+        asset: "Draft a first reply, 24-hour follow-up, and 72-hour follow-up sequence."
+      },
+      {
+        id: "conversion",
+        title: "Sales conversion",
+        hint: "Do prospects see proof, scope, price, objections, and payment next steps before the conversation goes cold?",
+        asset: "Prepare a one-page close pack with package choices, FAQs, and checkout links."
+      },
+      {
+        id: "onboarding",
+        title: "Onboarding",
+        hint: "After payment or agreement, is the buyer told exactly what happens next and what you need from them?",
+        asset: "Write a paid-client welcome note, intake checklist, and first delivery timeline."
+      },
+      {
+        id: "operations",
+        title: "Manual work",
+        hint: "Are repetitive admin tasks slowing delivery, follow-up, or reporting?",
+        asset: "Map one repeated workflow and replace the most fragile step with a template or automation."
+      }
+    ];
+
+    const questionRoot = document.getElementById("questions");
+    const riskScore = document.getElementById("riskScore");
+    const riskLabel = document.getElementById("riskLabel");
+    const riskSummary = document.getElementById("riskSummary");
+    const meterFill = document.getElementById("meterFill");
+    const priorityList = document.getElementById("priorityList");
+    const assetList = document.getElementById("assetList");
+    const briefOutput = document.getElementById("briefOutput");
+
+    function renderQuestions() {
+      questionRoot.innerHTML = dimensions.map((dimension, index) => `
+        <fieldset class="question">
+          <div class="question-top">
+            <div>
+              <legend><strong>${index + 1}. ${dimension.title}</strong></legend>
+              <p>${dimension.hint}</p>
+            </div>
+          </div>
+          <div class="score-options">
+            ${[
+              ["0", "Strong"],
+              ["1", "Mostly OK"],
+              ["2", "Weak"],
+              ["3", "Unknown"]
+            ].map(([value, label]) => `
+              <label>
+                <input type="radio" name="${dimension.id}" value="${value}" ${value === "1" ? "checked" : ""}>
+                <span>${label}</span>
+              </label>
+            `).join("")}
+          </div>
+        </fieldset>
+      `).join("");
+    }
+
+    function getScoreValue(id) {
+      const selected = document.querySelector(`input[name="${id}"]:checked`);
+      return selected ? Number(selected.value) : 1;
+    }
+
+    function riskBand(score) {
+      if (score >= 67) {
+        return {
+          label: "High friction risk",
+          summary: "There are several weak or unknown points. Start with the top three priorities before buying more traffic.",
+          color: "var(--danger)"
+        };
+      }
+      if (score >= 34) {
+        return {
+          label: "Moderate friction risk",
+          summary: "The journey has usable pieces, but a few targeted fixes could make the next review or campaign cleaner.",
+          color: "var(--warn)"
+        };
+      }
+      return {
+        label: "Lower friction risk",
+        summary: "The basics look comparatively clear. Inspect the top priority and use the rest as a maintenance checklist.",
+        color: "var(--accent)"
+      };
+    }
+
+    function updateResult() {
+      const scored = dimensions.map((dimension) => ({
+        ...dimension,
+        score: getScoreValue(dimension.id)
+      }));
+
+      const total = scored.reduce((sum, item) => sum + item.score, 0);
+      const risk = Math.round((total / (dimensions.length * 3)) * 100);
+      const band = riskBand(risk);
+      const priorities = scored
+        .slice()
+        .sort((a, b) => b.score - a.score || dimensions.findIndex((d) => d.id === a.id) - dimensions.findIndex((d) => d.id === b.id))
+        .slice(0, 3);
+
+      riskScore.textContent = risk;
+      riskLabel.textContent = band.label;
+      riskSummary.textContent = band.summary;
+      meterFill.style.width = `${risk}%`;
+      meterFill.style.background = band.color;
+
+      priorityList.innerHTML = priorities.map((item) => `
+        <li><strong>${item.title}</strong><span class="muted">${priorityText(item.score)}</span></li>
+      `).join("");
+
+      assetList.innerHTML = priorities.map((item) => `
+        <li><strong>${item.title}</strong><span class="muted">${item.asset}</span></li>
+      `).join("");
+
+      briefOutput.textContent = buildBrief(risk, band, priorities);
+    }
+
+    function priorityText(score) {
+      if (score === 3) return "Unknown. Verify this first because missing information often hides practical friction.";
+      if (score === 2) return "Weak. Treat this as a near-term fix candidate.";
+      if (score === 1) return "Mostly OK. Check for small improvements or clearer handoff.";
+      return "Strong. Keep it documented so it stays consistent.";
+    }
+
+    function buildBrief(risk, band, priorities) {
+      const businessType = document.getElementById("businessType").value.trim() || "Not specified";
+      const leadSource = document.getElementById("leadSource").value;
+      const notes = document.getElementById("notes").value.trim() || "No extra notes provided.";
+      const priorityLines = priorities.map((item, index) => `${index + 1}. ${item.title}: ${priorityText(item.score)} Suggested asset: ${item.asset}`);
+
+      return [
+        "Revenue Leak Triage Brief",
+        "",
+        `Business type: ${businessType}`,
+        `Current lead source: ${leadSource}`,
+        `Risk score: ${risk}/100`,
+        `Band: ${band.label}`,
+        "",
+        "Top priorities:",
+        ...priorityLines,
+        "",
+        "Notes:",
+        notes,
+        "",
+        "Next step:",
+        "Use this brief to run a self-serve fix session, or book the 48-hour audit for a ranked review and practical assets."
+      ].join("\n");
+    }
+
+    async function copyBrief() {
+      const text = briefOutput.textContent;
+      try {
+        await navigator.clipboard.writeText(text);
+        document.getElementById("copyBrief").textContent = "Copied";
+        setTimeout(() => {
+          document.getElementById("copyBrief").textContent = "Copy brief";
+        }, 1400);
+      } catch (error) {
+        briefOutput.focus();
+      }
+    }
+
+    renderQuestions();
+    updateResult();
+
+    document.getElementById("triageForm").addEventListener("input", updateResult);
+    document.getElementById("copyBrief").addEventListener("click", copyBrief);
+    document.getElementById("printBrief").addEventListener("click", () => window.print());
+  </script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Workflow Audit Capability</title>
+    <meta
+      name="description"
+      content="AI workflow audit and implementation-readiness support for service businesses, agencies, public-sector suppliers, and operations teams."
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #17211b;
+        --muted: #52615a;
+        --paper: #f7f5ef;
+        --white: #ffffff;
+        --line: #d9e2dc;
+        --green: #147a50;
+        --green-dark: #0c5538;
+        --blue: #266b8f;
+        --coral: #c95843;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: var(--paper);
+        line-height: 1.5;
+      }
+      a { color: inherit; }
+      .hero {
+        min-height: 78vh;
+        display: grid;
+        align-items: end;
+        background:
+          linear-gradient(90deg, rgba(12, 23, 17, .92), rgba(12, 23, 17, .58) 52%, rgba(12, 23, 17, .17)),
+          url("assets/ai-revenue-audit-hero.png") center / cover no-repeat;
+        color: var(--white);
+      }
+      .hero-inner, section {
+        width: min(1100px, calc(100% - 36px));
+        margin: 0 auto;
+      }
+      .hero-inner { padding: 112px 0 60px; }
+      .eyebrow {
+        margin: 0 0 18px;
+        font-size: 13px;
+        font-weight: 850;
+        text-transform: uppercase;
+        color: rgba(255,255,255,.76);
+      }
+      h1 {
+        margin: 0;
+        max-width: 840px;
+        font-size: clamp(42px, 8vw, 86px);
+        line-height: .96;
+        letter-spacing: 0;
+      }
+      .hero p {
+        max-width: 740px;
+        margin: 24px 0 0;
+        color: rgba(255,255,255,.88);
+        font-size: clamp(18px, 2.5vw, 24px);
+      }
+      .actions, .link-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        margin-top: 30px;
+      }
+      .button {
+        display: inline-flex;
+        min-height: 48px;
+        align-items: center;
+        justify-content: center;
+        padding: 13px 18px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        text-decoration: none;
+        font-weight: 850;
+      }
+      .button.primary { background: var(--white); color: var(--green-dark); }
+      .button.dark { background: var(--green); color: var(--white); }
+      .button.secondary { border-color: rgba(255,255,255,.52); color: var(--white); }
+      main { padding: 58px 0 76px; }
+      section { margin-bottom: 52px; }
+      h2 {
+        margin: 0 0 14px;
+        font-size: clamp(30px, 5vw, 48px);
+        line-height: 1.05;
+        letter-spacing: 0;
+      }
+      .lead { max-width: 780px; color: var(--muted); font-size: 18px; }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .card {
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 22px;
+      }
+      .card h3 { margin: 0 0 8px; font-size: 22px; }
+      .card p, li { color: var(--muted); }
+      .price {
+        margin: 8px 0 14px;
+        color: var(--green);
+        font-size: 34px;
+        font-weight: 900;
+        line-height: 1;
+      }
+      .included {
+        margin: 16px 0 0;
+        padding-left: 20px;
+      }
+      .notice { border-left: 4px solid var(--coral); }
+      footer {
+        padding: 28px 18px;
+        color: var(--muted);
+        text-align: center;
+      }
+      @media (max-width: 900px) {
+        .grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  <link rel="canonical" href="https://danielward2019111.github.io/money-maker-toolkit/capability.html" />
+  <meta property="og:title" content="AI Workflow Capability Statement" />
+  <meta property="og:description" content="AI workflow discovery and implementation-readiness capability for service businesses and operators." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://danielward2019111.github.io/money-maker-toolkit/capability.html" />
+  <meta property="og:image" content="https://danielward2019111.github.io/money-maker-toolkit/assets/ai-revenue-audit-hero.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI Workflow Capability Statement" />
+  <meta name="twitter:description" content="AI workflow discovery and implementation-readiness capability for service businesses and operators." />
+  <meta name="twitter:image" content="https://danielward2019111.github.io/money-maker-toolkit/assets/ai-revenue-audit-hero.png" />
+  <script type="application/ld+json" data-generated="money-maker">{"@context":"https://schema.org","@type":"ProfessionalService","name":"AI Workflow Discovery","url":"https://danielward2019111.github.io/money-maker-toolkit/capability.html","image":"https://danielward2019111.github.io/money-maker-toolkit/assets/ai-revenue-audit-hero.png","brand":{"@type":"Brand","name":"Money Maker Toolkit"}}</script>
+</head>
+  <body>
+    <header class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">Capability statement</p>
+        <h1>AI workflow audits for teams with real operational friction.</h1>
+        <p>Focused audit and implementation-readiness support for service businesses, agencies, public-sector suppliers, and operations teams that need practical automation without losing control of the workflow.</p>
+        <div class="actions">
+          <a class="button primary" href="order.html?product=workflow-discovery">Enquire via Revolut</a>
+          <a class="button secondary" href="output/pdf/ai-workflow-capability-statement.pdf">Download PDF</a>
+          <a class="button secondary" href="services.html">Fixed-scope services</a>
+          <a class="button secondary" href="intake.html">Start intake</a>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section>
+        <h2>Where the work fits</h2>
+        <p class="lead">This is for buyers with enquiries, service requests, bookings, documents, CRM activity, manual routing, or repeated handoffs that could benefit from safer AI-assisted workflow design.</p>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h3>AI Workflow Audit Sprint</h3>
+          <p class="price">GBP 1,200-4,000</p>
+          <p>Current-state workflow map, automation opportunity matrix, tool/data risk review, first sprint backlog, and implementation roadmap.</p>
+        </article>
+        <article class="card">
+          <h3>Prime / Public-Sector Workstream</h3>
+          <p class="price">GBP 3,000-15,000</p>
+          <p>Discovery support, human/AI handoff rules, auditability notes, 30/60/90-day delivery roadmap, and bid-ready narrative.</p>
+        </article>
+        <article class="card">
+          <h3>Fixed-Scope Starter</h3>
+          <p class="price">GBP 350+</p>
+          <p>One narrow workflow turned into a plain-English automation spec with triggers, fields, exceptions, approval points, and backlog.</p>
+        </article>
+      </section>
+
+      <section class="card">
+        <h2>Core workstreams</h2>
+        <ul class="included">
+          <li>AI workflow discovery and current-state process mapping</li>
+          <li>Automation opportunity matrices and implementation backlogs</li>
+          <li>Human-in-the-loop control design and auditability notes</li>
+          <li>CRM, inbox, booking, forms, service-request, and follow-up workflow review</li>
+          <li>AI operations runbooks and proof-of-concept planning</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>Good-fit buyers</h2>
+        <ul class="included">
+          <li>Agencies needing white-label AI workflow discovery</li>
+          <li>Public-sector primes needing a specialist AI/process workstream</li>
+          <li>CRM-heavy teams with manual routing or service-request bottlenecks</li>
+          <li>Healthcare, insurance, recruitment, accounting, consulting, and local-service operators with repeated workflows</li>
+          <li>Businesses considering AI agents but unsure which process should be automated first</li>
+        </ul>
+      </section>
+
+      <section class="card notice">
+        <h2>Guardrails</h2>
+        <p class="lead">No fake case studies, no revenue guarantees, no regulated legal/tax/medical/financial advice, and no private account access required for an audit unless explicitly agreed. Regulated workflows keep human approval, auditability, and data controls in scope.</p>
+        <div class="link-row">
+          <a class="button dark" href="order.html?product=workflow-discovery">Enquire via Revolut</a>
+          <a class="button dark" href="output/pdf/ai-workflow-capability-statement.pdf">Download capability PDF</a>
+          <a class="button dark" href="sample-audit.html">View sample audit</a>
+        </div>
+      </section>
+    </main>
+    <footer>
+      AI workflow audit and implementation-readiness support. Final implementation is scoped separately after discovery.
+    </footer>
+  </body>
+</html>

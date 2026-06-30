@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Revenue Leak Ops Pack</title>
+    <meta
+      name="description"
+      content="A checklist, template, and diagnostic app pack for finding revenue leaks in funnels, follow-up, checkout, and workflows."
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #17211b;
+        --muted: #52615a;
+        --paper: #f7f5ef;
+        --white: #ffffff;
+        --line: #d9e2dc;
+        --green: #147a50;
+        --green-dark: #0c5538;
+        --blue: #266b8f;
+        --coral: #c95843;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: var(--paper);
+        line-height: 1.5;
+      }
+      a { color: inherit; }
+      .hero {
+        min-height: 76vh;
+        display: grid;
+        align-items: end;
+        background:
+          linear-gradient(90deg, rgba(12, 23, 17, .9), rgba(12, 23, 17, .54) 52%, rgba(12, 23, 17, .16)),
+          url("assets/ai-revenue-audit-hero.png") center / cover no-repeat;
+        color: var(--white);
+      }
+      .hero-inner, section {
+        width: min(1080px, calc(100% - 36px));
+        margin: 0 auto;
+      }
+      .hero-inner { padding: 110px 0 58px; }
+      .eyebrow {
+        margin: 0 0 18px;
+        font-size: 13px;
+        font-weight: 850;
+        text-transform: uppercase;
+        color: rgba(255,255,255,.76);
+      }
+      h1 {
+        margin: 0;
+        max-width: 780px;
+        font-size: clamp(42px, 8vw, 86px);
+        line-height: .96;
+        letter-spacing: 0;
+      }
+      .hero p {
+        max-width: 700px;
+        margin: 24px 0 0;
+        color: rgba(255,255,255,.88);
+        font-size: clamp(18px, 2.5vw, 24px);
+      }
+      .actions, .link-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        margin-top: 30px;
+      }
+      .button {
+        display: inline-flex;
+        min-height: 48px;
+        align-items: center;
+        justify-content: center;
+        padding: 13px 18px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        text-decoration: none;
+        font-weight: 850;
+      }
+      .button.primary { background: var(--white); color: var(--green-dark); }
+      .button.dark { background: var(--green); color: var(--white); }
+      .button.secondary { border-color: rgba(255,255,255,.52); color: var(--white); }
+      main { padding: 58px 0 76px; }
+      section { margin-bottom: 52px; }
+      h2 {
+        margin: 0 0 14px;
+        font-size: clamp(30px, 5vw, 48px);
+        line-height: 1.05;
+        letter-spacing: 0;
+      }
+      .lead { max-width: 760px; color: var(--muted); font-size: 18px; }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .card {
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 22px;
+      }
+      .card h3 { margin: 0 0 8px; font-size: 22px; }
+      .card p, li { color: var(--muted); }
+      .price {
+        margin: 8px 0 14px;
+        color: var(--green);
+        font-size: 42px;
+        font-weight: 900;
+        line-height: 1;
+      }
+      .included {
+        margin: 16px 0 0;
+        padding-left: 20px;
+      }
+      .notice {
+        border-left: 4px solid var(--coral);
+      }
+      .download {
+        background: #edf4ef;
+      }
+      code {
+        background: rgba(20, 122, 80, .1);
+        border-radius: 6px;
+        padding: 2px 5px;
+      }
+      footer {
+        padding: 28px 18px;
+        color: var(--muted);
+        text-align: center;
+      }
+      @media (max-width: 860px) {
+        .grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  <link rel="canonical" href="https://danielward2019111.github.io/money-maker-toolkit/ops-pack.html" />
+  <meta property="og:title" content="AI Revenue Leak Ops Pack" />
+  <meta property="og:description" content="Checklist, templates, triage app source, and workflow assets for repeatable revenue-leak diagnostics." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://danielward2019111.github.io/money-maker-toolkit/ops-pack.html" />
+  <meta property="og:image" content="https://danielward2019111.github.io/money-maker-toolkit/assets/ai-revenue-audit-hero.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI Revenue Leak Ops Pack" />
+  <meta name="twitter:description" content="Checklist, templates, triage app source, and workflow assets for repeatable revenue-leak diagnostics." />
+  <meta name="twitter:image" content="https://danielward2019111.github.io/money-maker-toolkit/assets/ai-revenue-audit-hero.png" />
+  <script type="application/ld+json" data-generated="money-maker">{"@context":"https://schema.org","@type":"Product","name":"AI Revenue Leak Ops Pack","offers":{"@type":"Offer","priceCurrency":"GBP","price":"299"},"url":"https://danielward2019111.github.io/money-maker-toolkit/ops-pack.html","image":"https://danielward2019111.github.io/money-maker-toolkit/assets/ai-revenue-audit-hero.png","brand":{"@type":"Brand","name":"Money Maker Toolkit"}}</script>
+</head>
+  <body>
+    <header class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">Digital product · checklist · templates · app source</p>
+        <h1>AI Revenue Leak Ops Pack</h1>
+        <p>A practical pack for finding where leads, follow-up, checkout, and workflows leak revenue, then turning the fix into a clear action plan.</p>
+        <div class="actions">
+          <a class="button primary" href="order.html?product=ops-pack">Buy via Revolut</a>
+          <a class="button secondary" href="products.html">All products</a>
+          <a class="button secondary" href="services.html">Small services</a>
+          <a class="button secondary" href="capability.html">Workflow capability</a>
+          <a class="button secondary" href="intake.html">Start intake</a>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section>
+        <h2>Built for operators who need useful work, not theory</h2>
+        <p class="lead">Use the checklist, templates, and diagnostic app to review a website, improve follow-up, map a manual workflow, plan an automation sprint, or prepare for a deeper AI revenue audit.</p>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h3>Checklist</h3>
+          <p class="price">GBP 29</p>
+          <p>Revenue Leak Checklist PDF for a quick review of offer clarity, lead capture, follow-up, checkout, onboarding, and manual work.</p>
+        </article>
+        <article class="card">
+          <h3>Templates</h3>
+          <p class="price">GBP 99</p>
+          <p>Checklist plus templates for snapshots, landing-page copy, follow-up sequences, automation specs, and competitor scans.</p>
+        </article>
+        <article class="card">
+          <h3>Full Ops Pack</h3>
+          <p class="price">GBP 299</p>
+          <p>Everything above plus the Revenue Leak Triage static app source and prompt/agent workflow template.</p>
+        </article>
+      </section>
+
+      <section class="card">
+        <h2>Included files</h2>
+        <ul class="included">
+          <li>Revenue Leak Checklist PDF</li>
+          <li>Revenue Leak Snapshot template</li>
+          <li>Landing Page Copy Rebuild template</li>
+          <li>Follow-Up Sequence Fix Pack template</li>
+          <li>Plain-English Automation Spec template</li>
+          <li>Competitor Positioning Scan template</li>
+          <li>Defensive Security Mini-Audit template</li>
+          <li>Prompt / Agent Pack template</li>
+          <li>Revenue Leak Triage static app source</li>
+        </ul>
+      </section>
+
+      <section class="card notice">
+        <h2>How payment works for now</h2>
+        <p class="lead">Pay via Revolut, then send the buyer name, email, and chosen tier so the pack can be delivered. Dedicated product checkout can replace this later.</p>
+        <div class="link-row">
+          <a class="button dark" href="order.html?product=ops-pack">Pay via Revolut</a>
+          <a class="button dark" href="index.html">Book the full audit</a>
+          <a class="button dark" href="services.html">View small services</a>
+          <a class="button dark" href="capability.html">View capability</a>
+          <a class="button dark" href="intake.html">Send intake details</a>
+        </div>
+      </section>
+
+      <section class="card download">
+        <h2>Delivery</h2>
+        <p class="lead">The pack is delivered after payment or through a dedicated product platform checkout once available.</p>
+        <p><a href="order.html?product=ops-pack">Open the order page</a></p>
+      </section>
+    </main>
+    <footer>
+      Template and diagnostic pack. No revenue guarantees. Not legal, financial, tax, medical, or penetration-testing advice.
+    </footer>
+  </body>
+</html>

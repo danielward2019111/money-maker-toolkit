@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://danielward2019111.github.io/money-maker-toolkit/sitemap.xml
